@@ -9,6 +9,9 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+//Static File
+app.use(express.static('public'));
+
 let topmovies = [
     {
         title: 'Avatar(2009)',
@@ -106,10 +109,6 @@ app.get("/", (req, res) => {
 app.get('/movies', (req, res) => {
     res.status(200).json(topmovies);
 });
-
-
-//Static File
-app.use('/documentation', express.static('public'));
 
 //Error Handling
 app.use((err, req, res, next) => {
