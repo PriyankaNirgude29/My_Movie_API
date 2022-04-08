@@ -108,7 +108,7 @@ app.get('/movies', (req, res) => {
 });
 
 //Static File
-app.use(express.static('public'));
+app.use('/static', express.static('public'));
 
 //Error Handling
 app.use((err, req, res, next) => {
