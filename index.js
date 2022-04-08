@@ -102,10 +102,6 @@ app.get("/", (req, res) => {
     res.send("Welcome to myFlix")
 })
 
-app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', { root: __dirname });
-});
-
 //Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
     res.status(200).json(topmovies);
@@ -113,7 +109,7 @@ app.get('/movies', (req, res) => {
 
 
 //Static File
-app.use(express.static('public'));
+app.use('/documentation', express.static('public'));
 
 //Error Handling
 app.use((err, req, res, next) => {
