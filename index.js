@@ -1,7 +1,9 @@
 const express = require('express'),
-     morgan = require('morgan'),
-     bodyParser = require('body-parser');
-  
+      morgan = require('morgan'),
+      bodyParser = require('body-parser'),
+      fs = require('fs'),
+      path = require('path');
+
 const app = express();
 
 app.use(morgan('common'));
@@ -9,18 +11,18 @@ app.use(bodyParser.json());
 
 let topmovies = [
     {
-        title: 'Life Is Beautiful(1997)',
-        director: 'Roberto Benigni',
+        title: 'Avatar(2009)',
+        director: 'James Cameron',
         genre:  {
-            Name:'Drama, Comedy, War',
+            Name:'Action, Science-fiction',
             description: '',
         },
     },
     {
-        title: 'Inception(2010)',
-        director: 'Christopher Nolan',
+        title: 'Avengers:Endgame',
+        director: 'Anthony Russo,Joe Russo',
         genre:  {
-            Name:'Sci-Fi',
+            Name:'Action, Science-fiction',
             description: '',
         },
     },
@@ -28,15 +30,23 @@ let topmovies = [
         title: 'The Dark Knight(2008)',
         director: 'Christopher Nolan',
         genre:  {
-            Name:'Action, Crime, Drama',
+            Name:'Action, Adventure',
             description: '',
         },
     },
     {
-        title: 'Joker',
-        director: 'Todd Phillips',
+        title: 'Titanic Movie',
+        director: 'James Cameron',
         genre:  {
-            Name:'Thriller, Crime',
+            Name:'Romance, Drama',
+            description: '',
+        },
+    },
+    {
+        title: 'Uri : The surgical strike',
+        director: 'Aditya Dhar',
+        genre:  {
+            Name:'War, Action',
             description: '',
         },
     },
@@ -65,18 +75,10 @@ let topmovies = [
         },
     },
     {
-        title: 'In Time',
-        director: 'Andrew Niccol',
+        title: 'MS Dhoni : The untold story',
+        director: 'Neeraj Pandey',
         genre:  {
-            Name:'Sci-Fi',
-            description: '',
-        },
-    },
-    {
-        title: 'Gandhi',
-        director: 'Richard Attenborough',
-        genre:  {
-            Name:'Biography',
+            Name:'Biography, Sport, Drama',
             description: '',
         },
     },
@@ -91,9 +93,18 @@ let topmovies = [
 
 ];
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+
+// setup the logger
+app.use(morgan('combined', {stream: accessLogStream}));
+
 app.get("/", (req, res) => {
     res.send("Welcome to myFlix")
 })
+
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
 
 //Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
