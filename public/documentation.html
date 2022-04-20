@@ -24,30 +24,61 @@
         <tr>
           <td>List of movies to the user</td>
           <td>/movies</td>
-          <td>GET</td>
+          <td>GET<br>
+           app.get("/movies", (req,res) =>{
+            res.send('Successful GET request returns all the movies available on myFlix');});
+          </td>
           <td>None</td>
           <td>None</td>
-          <td>JSON object holding data about all favorite movies to a user</td>
+          <td>JSON object holding data about all favorite movies to a user:
+             <pre>
+               <code>
+                 {
+                   Title: {type: String, required: true},
+                   Description: {type: String, required: true},
+                   Genre: {
+                     Name: String,
+                     Description: String
+                   },
+                   Director: {
+                     Name: String,
+                     Bio: String,
+                     Birth: String,
+                     Death: String
+                   },
+                   ImagePath: String,
+                   Featured: Boolean
+                 }
+               </code>
+              </pre>
+          </td>
         </tr>
         <tr>
           <td>Return data about a single movie by title to the user</td>
-          <td>/movies/[title]</td>
-          <td>GET</td>
+          <td>/movies/[Title]</td>
+          <td>GET<br>
+          app.get("/movies/:Title", (req,res)=> {
+          res.send('Successful GET request returns searched movie');});</td>
           <td>:Title</td>
           <td>None</td>
           <td>JSON object holding data about the selected movie Ex:
             <pre>
               <code>
                 {
-                  title: String,
-                  director: {
-                    Name: String,
-                    Bio: String,
-                    Birth: String
-                  },
+                  Title: {type: String, required: true},
+                  Description: {type: String, required: true},
                   Genre: {
                     Name: String,
                     Description: String
+                  },
+                  Director: {
+                    Name: String,
+                    Bio: String,
+                    Birth: String,
+                    Death: String
+                  },
+                  ImagePath: String,
+                  Featured: Boolean
                   }
                 }
 
@@ -57,8 +88,11 @@
         </tr>
         <tr>
           <td>Data about a genre by name</td>
-          <td>/movies/genre/[Name]</td>
-          <td>GET</td>
+          <td>/genre/[Name]</td>
+          <td>GET<br>
+            app.get("genre/:Name", (req,res) => {
+            res.send('Successful GET request returning list of movies called by searched genre');});
+          </td>
           <td>:Name</td>
           <td>None</td>
           <td>JSON object holding data about genre. Ex:
@@ -74,8 +108,11 @@
         </tr>
         <tr>
           <td>Data about a director  by name</td>
-          <td>/movies/director/[Name]</td>
-          <td>GET</td>
+          <td>/director/[Name]</td>
+          <td>GET<br>
+            app.get("/director/:Name", (req,res) => {
+            res.send('Successful GET request returning data about a specific director with a Bio');});
+          </td>
           <td>:Name</td>
           <td>None</td>
           <td>JSON object holding data about director. Ex:
@@ -84,7 +121,8 @@
                 {
                     Name: String,
                     Bio: String,
-                    Birth: String
+                    Birth: String,
+                    Death: String
 
                 }
               </code>
@@ -94,60 +132,74 @@
         <tr>
           <td>Allow new users to register</td>
           <td>/users</td>
-          <td>POST</td>
+          <td>POST<br>
+            app.post("/users", (req,res) => {
+            req.post('Successful POST will create a new user Account');});
+         </td>
           <td>None</td>
           <td>JSON object holding data about the user being added. Ex:
             <pre>
               <code>
-    {
-      "name": "Anne Schmidt",
-      "favoriteMovies": [
-        ...
-      ]
-    }
+              {
+                Username: {type: String, required: true},
+                Password: {type: String, required: true},
+                Email: {type: String, required: true},
+                Birthday: Date,
+             }
               </code>
             </pre>
           </td>
         </tr>
         <tr>
           <td>Allow users to update their username</td>
-          <td>/users/[id]</td>
-          <td>PUT</td>
-          <td>:ID</td>
+          <td>/users/[Username]</td>
+          <td>PUT<br>
+          app.put("/users/:Username", (req,res) =>{
+          req.put('Successful PUT will allow user to update their info');});</td></td>
+          <td>:Username</td>
           <td> A JSON object holding the new username. Ex:
             <pre>
               <code>
-    {
-      "name": "Anne updated",
-      "favoriteMovies": " "
-    }
+                  {
+                    Username: "Anne_Updated",
+                    Password: "passwaord123",
+                    Email: "anne_updated@xyz.com",
+                    Birthday: "01/01/1985",
+                 }
               </code>
             </pre>
           </td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favoriteMovies</td>
-          <td>/users/[id]/[movieTitle]</td>
-          <td>POST</td>
-          <td>:ID, :MovieTitle</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>POST<br>
+          app.post("/users/:Username/movies/:MovieID", (req,res)  =>{
+          req.put('Successful POST will add movie to user's list');});
+        </td>
+          <td>:Username, :MovieID</td>
           <td>None</td>
           <td>Movie ID added to user's list of favorites</td>
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
-          <td>/users/[id]/[movieTitle]</td>
-          <td>DELETE</td>
-          <td>:ID, :movieTitle</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>DELETE<br>
+          app.delete("/users/:Username/movies/:MovieID", (req,res)  =>{
+          res.delete('Successful DELETE will DELETE a movie from user's list');});</td></td>
+          <td>:Username, :MovieID</td>
           <td>None</td>
           <td>Movie ID gets removed from user's list of favorites</td>
         </tr>
         <tr>
           <td>Deletes a user</td>
-          <td>/users/[id]</td>
-          <td>DELETE</td>
-          <td>:ID</td>
+          <td>/users/[Username]</td>
+          <td>DELETE<br>
+          app.delete("/users/:Username",(req,res) =>{
+          res.delete('Successful DELETE will DELETE a user's Account');});</td>
+          <td>:Username</td>
           <td>None</td>
-          <td>Message stating user with ID has been deleted</td>
+          <td>Message stating user with username has been deleted</td>
         </tr>
       </tbody>
     </table></div>
