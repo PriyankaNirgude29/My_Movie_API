@@ -6,23 +6,24 @@ const express = require('express'),
 
 const app = express();
 
+app.use(morgan('common'));
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
-app.use(morgan('common'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-let auth = require('./auth')(app);
-const passport = require('passport');
-require('./passport');
-
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+
 
 // setup the logger
 app.use(morgan('combined', {stream: accessLogStream}));
@@ -151,7 +152,7 @@ app.post('/users', (req, res) => {
 
 
 //   UPDATE : Update User information by UserName
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username',  passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
