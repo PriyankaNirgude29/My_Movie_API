@@ -3,13 +3,15 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       fs = require('fs'),
       path = require('path');
-const port = process.env.PORT || 8080;
+
 const { check, validationResult } = require('express-validator');
 
 const app = express();
+const port = process.env.PORT || 8080;
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
@@ -25,7 +27,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(process.env.CONNECTION_URI || 'mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/test", { useNewUrlParser: true, useUnifiedTopology: true });
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
