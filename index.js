@@ -52,19 +52,6 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 
 });
 
-//READ : Return a list of ALL users
-app.get('/users', (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-
-});
-
 //READ : Return data using Movie Title
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ Title: req.params.Title })
