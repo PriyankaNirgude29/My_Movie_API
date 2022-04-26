@@ -4,16 +4,16 @@ const express = require('express'),
       fs = require('fs'),
       path = require('path');
 
-const { check, validationResult } = require('express-validator');
-
 const app = express();
 const port = process.env.PORT || 8080;
 
+const { check, validationResult } = require('express-validator');
+
 app.use(morgan('common'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use(bodyParser.urlencoded({ extended: true }));
+
 const cors = require('cors');
 app.use(cors());
 
@@ -136,7 +136,7 @@ app.post('/users', [
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
-  ],(req, res) => {
+  ], (req, res) => {
 
     let errors = validationResult(req);
 
