@@ -43,8 +43,8 @@ This application has been developed as a part of Full-Stack Web Development Cour
 
 ## Links
 
-[#movie-api](https://my-movie-api29.herokuapp.com/)
+[Movie-Api](https://my-movie-api29.herokuapp.com/)
 
-[#documentation](https://my-movie-api29.herokuapp.com/static/documentation.html)
+[Documentation](https://my-movie-api29.herokuapp.com/static/documentation.html)
 
-[#git-link](https://github.com/PriyankaNirgude29/My_Movie_API.git)
+[Git-link](https://github.com/PriyankaNirgude29/My_Movie_API.git)
