@@ -6,40 +6,40 @@ This application has been developed as a part of Full-Stack Web Development Cour
 
 ## Technical Requirements
 
-Node.js
-Express
-RESTful architecture
-MongoDB
-JavaScript
+* Node.js
+* Express
+* RESTful architecture
+* MongoDB
+* JavaScript
 
 ## Key features
 
-Using at least three middleware modules
-Database built using MongoDB
-Business logic layer is modeled with Mongoose
-API return movies in JSON
-Code is Error-free
-Testing in Postman
-User Authentication, User Authorization
-Data Validation
-Data Security Regulations
-Deployment on GitHub
-Deployment on Heroku
+* Using at least three middleware modules
+* Database built using MongoDB
+* Business logic layer is modeled with Mongoose
+* API return movies in JSON
+* Code is Error-free
+* Testing in Postman
+* User Authentication, User Authorization
+* Data Validation
+* Data Security Regulations
+* Deployment on GitHub
+* Deployment on Heroku
 
 ## Dependencies
 
-bcrypt
-body-parser
-cors
-express
-express-validator
-jsonwebtoken
-mongoose
-morgan
-passport
-passport-jwt
-passport-local
-uuid
+* bcrypt
+* body-parser
+* cors
+* express
+* express-validator
+* jsonwebtoken
+* mongoose
+* morgan
+* passport
+* passport-jwt
+* passport-local
+* uuid
 
 ## Links
 
